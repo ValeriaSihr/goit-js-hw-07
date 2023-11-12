@@ -11,7 +11,7 @@ function createGalleryMarkup(items) {
     return items
         .map(
             (item) =>
-                `<div class = "gallery__item"><a class = "gallery__link" href = "${item.original}"><img class="gallery__image" src = "${item.preview}" data-source ="${item.original}" alt ="${item.description}"/> </a></div>`
+                `<li class = "gallery__item"><a class = "gallery__link" href = "${item.original}"><img class="gallery__image" src = "${item.preview}" data-source ="${item.original}" alt ="${item.description}"/> </a></li>`
         )
         .join("");
 }
@@ -19,6 +19,7 @@ function createGalleryMarkup(items) {
 const addGalleryMarkup = createGalleryMarkup(galleryItems);
 ulGallery.innerHTML = addGalleryMarkup;
 ulGallery.addEventListener("click", onImageClick);
+
 function onImageClick(event) {
     blockStandartAction(event);
 
