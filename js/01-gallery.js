@@ -31,13 +31,33 @@ function onImageClick(event) {
     );
     instance.show();
 
-    ulGallery.addEventListener("keydown", (event) => {
+    window.addEventListener("keydown", onKeyPress);
+    instance.element().addEventListener("click", onCloseBtnClick);
+
+    function onKeyPress(event) {
         if (event.code === "Escape") {
             instance.close();
         }
-    });
+    }
+
+    function onCloseBtnClick(event) {
+        if (event.target.nodeName === "IMG") {
+            return;
+        }
+        instance.close();
+    }
 }
 
 function blockStandartAction(event) {
     event.preventDefault();
 }
+//     galleryItems.addEventListener("keydown", (event) => {
+//         if (event.code === "Escape") {
+//             instance.close();
+//         }
+//     });
+// }
+
+// function blockStandartAction(event) {
+//     event.preventDefault();
+// }
