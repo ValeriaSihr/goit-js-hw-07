@@ -21,41 +21,42 @@ ulGallery.innerHTML = addGalleryMarkup;
 ulGallery.addEventListener("click", onImageClick);
 
 function onImageClick(event) {
-    blockStandartAction(event);
+    event.preventDefault();
 
     if (event.target.nodeName !== "IMG") {
         return;
     }
     const instance = basicLightbox.create(
-        `<img src="${event.target.dataset.source}" width ="800" height = "600">`
+        `<img src="${event.target.dataset.source}" width ="800" height = "600">`,
+        {
+            onShow: () => document.addEventListener("keydown", onEscPress),
+            onClose: () => document.removeEventListener("keydown", onEscPress),
+        }
     );
     instance.show();
 
-    window.addEventListener("keydown", onKeyPress);
-    instance.element().addEventListener("click", onCloseBtnClick);
-
-    function onKeyPress(event) {
+    function onEscPress(event) {
         if (event.code === "Escape") {
             instance.close();
         }
     }
-
-    function onCloseBtnClick(event) {
-        if (event.target.nodeName === "IMG") {
-            return;
-        }
-        instance.close();
-    }
 }
 
-function blockStandartAction(event) {
-    event.preventDefault();
-}
-//     galleryItems.addEventListener("keydown", (event) => {
+//     window.addEventListener("keydown", onKeyPress);
+//     instance.element().addEventListener("click", onCloseBtnClick);
+
+//     function onKeyPress(event) {
 //         if (event.code === "Escape") {
 //             instance.close();
 //         }
-//     });
+//     }
+
+//     function onCloseBtnClick(event) {
+//         if (event.target.nodeName === "IMG") {
+//             return;
+//         }
+//         instance.close();
+//     }
 // }
 
 // function blockStandartAction(event) {
